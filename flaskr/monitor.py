@@ -7,9 +7,14 @@ import decimal
 
 
 def measure_temp():
-    temp = os.popen("vcgencmd measure_temp").readline()
+    try:
+        temp = os.popen("vcgencmd measure_temp").readline()
+        temp = temp.replace("temp=","")
+        temp = temp.replace("'C\n", "")
+
+    except Exception as e:
+        temp = float(decimal.Decimal(random.randrange(0, 1000) / 10))
     return float(temp)
-    # return float(decimal.Decimal(random.randrange(0, 1000) / 10))
 
 
 def log_temp(temp):

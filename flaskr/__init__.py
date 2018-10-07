@@ -1,7 +1,8 @@
 import os
+import threading
 
 from flask import Flask
-
+from flaskr.cpu import temp_daemon
 
 def create_app(test_config=None):
     # create and configure the app
@@ -23,6 +24,11 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    # with app.app_context():
+    #     thread = threading.Thread(name='temp_daemon', target=temp_daemon)
+    #     thread.setDaemon(True)
+    #     thread.start()
 
     # a simple page that says hello
     @app.route('/hello')
